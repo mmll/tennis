@@ -1,16 +1,18 @@
 import React from 'react'
-import PropType from 'prop-types'
+import {withRouter} from "react-router-dom"
 
-const Login = ({onLogin}) =>
+const Login = ({onLogin, history}) =>
 {
 	let input;
 	return (
+		<div>
 	<form onSubmit={e=>{
 		e.preventDefault();
 		if(!input.value.trim()){
 			return
 		}
 		onLogin(input.value);
+		history.push("/home")
 	}}>
 		<label>
 			UserName:
@@ -18,7 +20,7 @@ const Login = ({onLogin}) =>
 		</label>
 		<button type='submit'>Login</button>
 	</form>
+		</div>
 )};
 
-
-export default Login;
+export default withRouter(Login);
