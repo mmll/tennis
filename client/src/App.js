@@ -3,6 +3,7 @@ import './App.css';
 import LoginContainer from './container/loginContainer'
 import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom'
 import MainContainer from './container/mainContainer'
+import RegisterComponent from "./component/registerComponent";
 
 function App() {
 	return (
@@ -23,8 +24,11 @@ function App() {
 					<Route path="/home">
 						<MainContainer />
 					</Route>
-					<Route path="/">
+					<Route path="/login">
 						<LoginContainer />
+					</Route>
+					<Route path="/register">
+						<RegisterComponent />
 					</Route>
 				</Switch>
 			</div>
