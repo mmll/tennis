@@ -1,22 +1,35 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {withRouter} from "react-router-dom"
+import postData from "../service/fetch";
 
 const Login = ({onLogin, history, user}) =>
 {
 	let input;
+	const [message, setMessage] = useState("");
 	const handleInputChange = e => {
 		const {name, value} = e.target;
 		user[name] = value;
 	};
 
+	const handleLogin = async (user) => {
+		const res = await postData('/api/login', {user});
+		if(res.status == 200){
+			history.push('/home');
+		}
+		else{
+			setMessage('failed');
+		}
+	};
+
 	return (
 		<div>
+			<div>{message}</div>
 	<form onSubmit={e=>{
 		e.preventDefault();
 		if(!user['username'] || !user['password']){
 			return
 		}
-		onLogin(user);
+		handleLogin(user);
 	}}>
 		<label>
 			UserName:

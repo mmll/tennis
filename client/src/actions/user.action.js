@@ -28,3 +28,8 @@ export const loginUser = event => ({
 	type: 'LOGIN_USER',
 	payload: user,
 });
+
+export const submitLogin = user =>({
+	type: 'SUBMIT_LOGIN',
+	payload: user,
+})

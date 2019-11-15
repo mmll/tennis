@@ -1,24 +1,28 @@
 import React, {useState} from 'react'
-import service from './../service/fetch'
+import postData from './../service/fetch'
 import {withRouter} from "react-router-dom"
 
 
 const RegisterComponent = (props) => {
 	let input;
 	const [user, setUser] = useState({username: '', email: '', password: ''});
+	const [message, setMessage] = useState("");
 	const handleInputChange = e => {
 		const {name, value} = e.target;
 		setUser({...user, [name]: value})
 	};
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		service.postData('/api/register', {user}).then(res=>{
+		const res = await postData('/api/register', {user});
+		if(res.status == 500){
+			setMessage('failed');
+		}else if(res.status == 200){
 			props.history.push('/home');
-		});
-
+		}
 	};
 	return (
 		<div>
+			<div>{message}</div>
 			<form onSubmit={handleSubmit}>
 				<label>
 					UserName:
